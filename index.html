@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHROME DURAG</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="images/logo.png">
+</head>
+<body>
+    <!-- Music player -->
+    <div class="music-player">
+        <audio id="bg-music" loop>
+            <source src="images/trap.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        <button id="play-pause-btn" class="music-btn">
+            <i class="fas fa-play"></i>
+        </button>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <a href="#" class="logo-nav">
+                <img src="images/logo.png" alt="Chrome Durag Logo" class="nav-logo">
+            </a>
+        </div>
+        <div class="nav-right">
+            <a href="https://twitter.com" target="_blank" class="nav-link">
+                <span class="nav-text">TWITTER</span>
+            </a>
+            <a href="https://dexscreener.com" target="_blank" class="nav-link">
+                <span class="nav-text">DEXSCREENER</span>
+            </a>
+            <div class="nav-link contract-link">
+                <span class="nav-text contract-text" id="contract-address">0x7A3b9F2C8d1E5f4A6C9D0B7E8F2A1C3D5E7F9B2A</span>
+                <button class="copy-btn" id="copy-contract">
+                    <i class="far fa-copy"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Durag image with glitch effect -->
+            <div class="durag-container">
+                <img src="images/durag.png" alt="Chrome Durag" class="durag-img" id="durag-img">
+            </div>
+            
+            <!-- Logo image with zoom effect -->
+            <div class="logo-container">
+                <img src="images/logo.png" alt="Chrome Durag Logo" class="logo-img">
+            </div>
+            
+            <!-- PFP Editor Modal -->
+            <div class="modal" id="pfp-modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title">CHROME DURAG EDITOR</h2>
+                        <button class="close-modal" id="close-modal">&times;</button>
+                    </div>
+                    
+                    <div class="editor-container">
+                        <!-- Canvas for PFP editing -->
+                        <div class="canvas-container">
+                            <canvas id="pfp-canvas" width="400" height="400"></canvas>
+                            <div class="canvas-placeholder" id="canvas-placeholder">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p>UPLOAD YOUR PHOTO</p>
+                            </div>
+                            <input type="file" id="image-upload" accept="image/*" style="display: none;">
+                        </div>
+                        
+                        <!-- Controls section -->
+                        <div class="controls-section">
+                            <!-- Durag selection -->
+                            <div class="durag-selection">
+                                <h3 class="section-title">SELECT DURAG</h3>
+                                <div class="durag-options">
+                                    <div class="durag-option active" data-durag="durag.png">
+                                        <img src="images/durag.png" alt="Durag Classic">
+                                        <span>CLASSIC</span>
+                                    </div>
+                                    <div class="durag-option" data-durag="durag1.png">
+                                        <img src="images/durag1.png" alt="Durag Premium">
+                                        <span>PREMIUM</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Transform controls -->
+                            <div class="transform-controls">
+                                <h3 class="section-title">POSITION DURAG</h3>
+                                <div class="control-group">
+                                    <div class="control">
+                                        <label>SCALE</label>
+                                        <input type="range" id="scale-control" min="10" max="200" value="100">
+                                        <span id="scale-value">100%</span>
+                                    </div>
+                                    <div class="control">
+                                        <label>ROTATE</label>
+                                        <input type="range" id="rotate-control" min="0" max="360" value="0">
+                                        <span id="rotate-value">0°</span>
+                                    </div>
+                                    <div class="position-controls">
+                                        <div class="control">
+                                            <label>X POS</label>
+                                            <input type="range" id="x-control" min="0" max="400" value="200">
+                                            <span id="x-value">200px</span>
+                                        </div>
+                                        <div class="control">
+                                            <label>Y POS</label>
+                                            <input type="range" id="y-control" min="0" max="400" value="50">
+                                            <span id="y-value">50px</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Action buttons -->
+                            <div class="action-buttons">
+                                <button id="upload-btn" class="action-btn">
+                                    <i class="fas fa-upload"></i> UPLOAD PHOTO
+                                </button>
+                                <button id="save-btn" class="action-btn save-btn">
+                                    <i class="fas fa-download"></i> SAVE PFP
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
