@@ -30,19 +30,34 @@ let duragImage = new Image();
 duragImage.src = currentDurag;
 
 let duragTransform = {
-    scale: 1.0,
+    scale: 0.35,
     rotation: 0,
     x: 200,
-    y: 50
+    y: 200
 };
 
 // Initialize music player
 musicPlayer.volume = 0.5;
 let isPlaying = false;
+let userInteracted = false;
 
-// Initialize with a default background
-ctx.fillStyle = '#111';
-ctx.fillRect(0, 0, canvas.width, canvas.height);
+// Start music on first user interaction
+function startMusicOnInteraction() {
+    if (!userInteracted && !isPlaying) {
+        musicPlayer.play().then(() => {
+            isPlaying = true;
+            playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+        }).catch(e => {
+            console.log("Autoplay prevented:", e);
+        });
+        userInteracted = true;
+    }
+}
+
+// Add event listeners for user interaction
+document.addEventListener('click', startMusicOnInteraction);
+document.addEventListener('touchstart', startMusicOnInteraction);
+document.addEventListener('keydown', startMusicOnInteraction);
 
 // Apply vibration effect to body on intervals
 function applyVibration() {
@@ -73,6 +88,7 @@ duragImg.addEventListener('click', () => {
             applyElementVibration(pfpModal);
         }, i * 50);
     }
+    startMusicOnInteraction();
 });
 
 // Close modal
@@ -90,10 +106,12 @@ window.addEventListener('click', (e) => {
 // Handle image upload
 uploadBtn.addEventListener('click', () => {
     imageUpload.click();
+    startMusicOnInteraction();
 });
 
 canvasPlaceholder.addEventListener('click', () => {
     imageUpload.click();
+    startMusicOnInteraction();
 });
 
 imageUpload.addEventListener('change', (e) => {
@@ -116,6 +134,7 @@ imageUpload.addEventListener('change', (e) => {
         };
         reader.readAsDataURL(file);
     }
+    startMusicOnInteraction();
 });
 
 // Handle durag selection
@@ -131,6 +150,7 @@ duragOptions.forEach(option => {
         
         // Apply vibration effect
         applyElementVibration(option);
+        startMusicOnInteraction();
         
         // Redraw canvas
         duragImage.onload = () => {
@@ -145,6 +165,7 @@ scaleControl.addEventListener('input', (e) => {
     scaleValue.textContent = `${e.target.value}%`;
     drawCanvas();
     applyElementVibration(scaleControl);
+    startMusicOnInteraction();
 });
 
 rotateControl.addEventListener('input', (e) => {
@@ -152,6 +173,7 @@ rotateControl.addEventListener('input', (e) => {
     rotateValue.textContent = `${e.target.value}°`;
     drawCanvas();
     applyElementVibration(rotateControl);
+    startMusicOnInteraction();
 });
 
 xControl.addEventListener('input', (e) => {
@@ -159,6 +181,7 @@ xControl.addEventListener('input', (e) => {
     xValue.textContent = `${e.target.value}px`;
     drawCanvas();
     applyElementVibration(xControl);
+    startMusicOnInteraction();
 });
 
 yControl.addEventListener('input', (e) => {
@@ -166,6 +189,7 @@ yControl.addEventListener('input', (e) => {
     yValue.textContent = `${e.target.value}px`;
     drawCanvas();
     applyElementVibration(yControl);
+    startMusicOnInteraction();
 });
 
 // Draw everything on canvas
@@ -228,6 +252,8 @@ saveBtn.addEventListener('click', () => {
             applyElementVibration(saveBtn);
         }, i * 100);
     }
+    
+    startMusicOnInteraction();
 });
 
 // Music player controls
@@ -250,6 +276,7 @@ playPauseBtn.addEventListener('click', () => {
     
     // Apply vibration effect to button
     applyElementVibration(playPauseBtn);
+    startMusicOnInteraction();
 });
 
 // Copy contract address
@@ -271,6 +298,8 @@ copyContractBtn.addEventListener('click', () => {
         .catch(err => {
             console.error('Failed to copy: ', err);
         });
+    
+    startMusicOnInteraction();
 });
 
 // Apply random vibrations to various elements periodically
